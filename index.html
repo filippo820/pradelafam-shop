@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<!-- Consent Mode default - DEVE stare prima del tag GA4 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'wait_for_update': 500
+  });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M29PYB9NDX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-M29PYB9NDX');
+</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Bottega del Prà — Prà de la Fam · Lago di Garda</title>
@@ -936,5 +953,57 @@ function sendForm() {
   setTimeout(() => { ok.style.display = 'none'; }, 9000);
 }
 </script>
+
+<!-- ═══ COOKIE BANNER ═══ -->
+<style>
+  #pdlf-overlay{position:fixed;inset:0;background:rgba(11,21,32,.45);z-index:9998;display:flex;align-items:flex-end;justify-content:center}
+  #pdlf-banner{background:#f7f4ef;border-top:2px solid #b8934a;width:100%;max-width:960px;padding:28px 36px 24px;font-family:'DM Sans',sans-serif;display:flex;gap:32px;align-items:flex-end;box-sizing:border-box}
+  #pdlf-banner h2{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#0b1520;margin:0 0 8px;letter-spacing:.02em}
+  #pdlf-banner p{font-size:13px;color:#4a5260;line-height:1.65;margin:0}
+  #pdlf-banner a{color:#b8934a;text-underline-offset:2px}
+  .pdlf-actions{display:flex;flex-direction:column;gap:10px;min-width:180px}
+  .pdlf-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:11px 20px;border-radius:2px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border:1px solid #b8934a;text-align:center}
+  .pdlf-btn-yes{background:#b8934a;color:#f7f4ef}
+  .pdlf-btn-no{background:transparent;color:#0b1520;border-color:#c8bfae}
+  .pdlf-btn-manage{background:transparent;color:#8a8078;border:none;font-size:12px;letter-spacing:.04em;padding:4px 0;text-transform:uppercase;cursor:pointer;width:100%}
+  @media(max-width:600px){#pdlf-banner{flex-direction:column;gap:20px;padding:24px 20px 20px}}
+</style>
+
+<div id="pdlf-overlay">
+  <div id="pdlf-banner" role="dialog" aria-label="Consenso cookie">
+    <div style="flex:1">
+      <h2>Cookie &amp; Privacy</h2>
+      <p>Utilizziamo cookie analitici per migliorare la tua esperienza e capire come viene utilizzata la nostra boutique. Nessun dato è ceduto a terzi per scopi pubblicitari.<br><br>
+      <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="/cookie.html">Cookie Policy</a></p>
+    </div>
+    <div class="pdlf-actions">
+      <button class="pdlf-btn pdlf-btn-yes" onclick="pdlfConsent(true)">Accetta</button>
+      <button class="pdlf-btn pdlf-btn-no" onclick="pdlfConsent(false)">Solo necessari</button>
+      <button class="pdlf-btn-manage" onclick="pdlfConsent(false)">Gestisci preferenze</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var stored = localStorage.getItem('pdlf_consent');
+    if(stored !== null){ applyConsent(stored === 'true'); return; }
+  })();
+
+  function pdlfConsent(accepted){
+    localStorage.setItem('pdlf_consent', accepted);
+    applyConsent(accepted);
+    document.getElementById('pdlf-overlay').remove();
+  }
+
+  function applyConsent(accepted){
+    gtag('consent', 'update', {
+      'analytics_storage': accepted ? 'granted' : 'denied'
+    });
+    var el = document.getElementById('pdlf-overlay');
+    if(el) el.remove();
+  }
+</script>
+  
 </body>
 </html>
