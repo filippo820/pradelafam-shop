@@ -985,15 +985,9 @@ function sendForm() {
 </div>
 
 <script>
-  (function(){
-    var stored = localStorage.getItem('pdlf_consent');
-    if(stored !== null){ applyConsent(stored === 'true'); return; }
-  })();
-
   function pdlfConsent(accepted){
     localStorage.setItem('pdlf_consent', accepted);
     applyConsent(accepted);
-    document.getElementById('pdlf-overlay').remove();
   }
 
   function applyConsent(accepted){
@@ -1003,7 +997,12 @@ function sendForm() {
     var el = document.getElementById('pdlf-overlay');
     if(el) el.remove();
   }
+
+  (function(){
+    var stored = localStorage.getItem('pdlf_consent');
+    if(stored !== null){ applyConsent(stored === 'true'); }
+  })();
 </script>
-  
+
 </body>
 </html>
