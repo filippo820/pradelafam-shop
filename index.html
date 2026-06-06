@@ -50,7 +50,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-center a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
 .nav-center a:hover::after,.nav-center a.active::after{width:100%}
 .nav-center a:hover,.nav-center a.active{color:var(--ink)}
-/* LANGUAGE SWITCHER */
 .lang-switcher{display:flex;align-items:center;gap:.15rem}
 .lang-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--steel);cursor:pointer;padding:.2rem .32rem;transition:color .2s;border-radius:2px}
 .lang-btn:hover{color:var(--gold)}
@@ -91,8 +90,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* PRODUCT CARDS */
 .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.4rem}
-.prod-card{background:var(--white);box-shadow:var(--shadow-float);overflow:hidden;border-radius:2px;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.prod-card{background:var(--white);box-shadow:var(--shadow-float);overflow:hidden;border-radius:2px;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s var(--ease);cursor:pointer}
 .prod-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover)}
+.prod-card.open{transform:none!important;box-shadow:var(--shadow-hover)!important}
+.prod-card.open:hover{transform:none}
 .prod-img{position:relative;aspect-ratio:4/3;background:var(--warm);overflow:hidden}
 .prod-slides{display:flex;height:100%;transition:transform .5s var(--ease)}
 .prod-slide{flex:0 0 100%;height:100%;display:flex;align-items:center;justify-content:center}
@@ -109,13 +110,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .prod-badge.dark{background:var(--ink);color:var(--bone)}
 .prod-body{padding:1.5rem 1.6rem 1.8rem;display:flex;flex-direction:column;flex:1}
 .prod-cat{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.3rem}
-.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:.5rem;line-height:1.2}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:.5rem;line-height:1.2;display:flex;align-items:center;justify-content:space-between}
 .prod-desc{font-size:.77rem;font-weight:300;line-height:1.8;color:var(--steel);margin-bottom:1.1rem;flex:1}
 .prod-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:1rem;border-top:1px solid rgba(11,21,32,.07)}
 .prod-price{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--ink)}
 .prod-price small{font-family:'DM Sans',sans-serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);display:block;font-weight:300}
 .prod-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--ink);color:var(--bone);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.1rem;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:'DM Sans',sans-serif}
 .prod-btn:hover{background:var(--gold);color:var(--ink)}
+
+/* EXPAND PANEL */
+.prod-expand{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.4,0,.2,1),opacity .4s ease;opacity:0;border-top:0px solid transparent}
+.prod-card.open .prod-expand{max-height:600px;opacity:1;border-top:1px solid rgba(11,21,32,.07)}
+.prod-card-dark.open .prod-expand{border-top-color:rgba(247,244,239,.1)}
+.expand-inner{padding:1.2rem 1.6rem 1.6rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:520px){.expand-inner{grid-template-columns:1fr}}
+.expand-label{font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.4rem}
+.expand-val{font-size:.78rem;line-height:1.75;color:var(--steel)}
+.prod-card-dark .expand-val{color:rgba(247,244,239,.6)}
+.prod-card-dark .expand-label{color:var(--gold2)}
+.variant-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
+.chip{display:inline-block;font-size:.64rem;letter-spacing:.04em;padding:.22rem .65rem;border-radius:20px;border:1px solid rgba(11,21,32,.18);color:var(--steel)}
+.prod-card-dark .chip{border-color:rgba(247,244,239,.2);color:rgba(247,244,239,.55)}
+.chip.color-chip{width:20px;height:20px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+.expand-price-big{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);line-height:1;margin-bottom:.6rem;display:block}
+.prod-card-dark .expand-price-big{color:var(--gold3)}
+.expand-cta{display:flex;align-items:center;justify-content:center;gap:.4rem;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;width:100%}
+.expand-cta:hover{background:var(--gold2)}
+.toggle-icon{font-size:.75rem;color:var(--steel);transition:transform .35s;display:inline-block;line-height:1;margin-left:.5rem;flex-shrink:0}
+.prod-card.open .toggle-icon{transform:rotate(180deg)}
+.prod-card-dark .toggle-icon{color:rgba(247,244,239,.4)}
 
 /* DARK SECTION */
 .sec-dark{background:var(--ink);padding:clamp(4rem,10vw,8rem) clamp(1.5rem,5vw,5rem);position:relative;overflow:hidden}
@@ -128,6 +151,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .sec-dark .sec-meta{color:rgba(247,244,239,.45)}
 .prod-card-dark{background:rgba(247,244,239,.05);border:1px solid rgba(247,244,239,.09);box-shadow:none;transition:background .3s,border-color .3s,transform .45s var(--ease),box-shadow .45s var(--ease)}
 .prod-card-dark:hover{background:rgba(247,244,239,.09);border-color:rgba(184,147,74,.3);transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.prod-card-dark.open{background:rgba(247,244,239,.09);border-color:rgba(184,147,74,.3)}
 .prod-card-dark .prod-img{background:rgba(247,244,239,.04)}
 .prod-card-dark .prod-cat{color:var(--gold2)}
 .prod-card-dark .prod-name{color:var(--white)}
@@ -137,6 +161,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .prod-card-dark .prod-price small{color:rgba(247,244,239,.38)}
 .prod-card-dark .prod-btn{background:var(--gold);color:var(--ink)}
 .prod-card-dark .prod-btn:hover{background:var(--gold2)}
+.prod-card-dark .expand-cta{background:var(--gold);color:var(--ink)}
 .oil-visual{display:flex;align-items:flex-end;justify-content:center;gap:1.2rem;height:100%;padding:1.5rem 1rem;position:relative}
 .oil-bottle{display:flex;flex-direction:column;align-items:center}
 .oil-body{border-radius:4px 4px 6px 6px;border:1px solid rgba(184,147,74,.35);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -208,7 +233,7 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
 .r{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}
 .r.in{opacity:1;transform:none}
-@media(max-width:600px){.prod-grid{grid-template-columns:1fr}.prod-footer{flex-direction:column;align-items:flex-start;gap:.7rem}.prod-btn{width:100%;justify-content:center}}
+@media(max-width:600px){.prod-grid{grid-template-columns:1fr}.prod-footer{flex-direction:column;align-items:flex-start;gap:.7rem}.prod-btn{width:100%;justify-content:center}.expand-inner{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -265,114 +290,236 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
   </div>
   <div class="prod-grid">
 
-    <!-- TELO MARE -->
-    <div class="prod-card r">
+    <!-- FOUTA -->
+    <div class="prod-card r" onclick="toggleCard(this)">
       <div class="prod-img">
         <div class="prod-slides">
-          <div class="prod-slide"><div class="prod-slide-ph">🏖️</div></div>
-          <!-- <div class="prod-slide"><img src="img/telo-fronte.jpg" alt="Telo mare fronte"></div> -->
-          <!-- <div class="prod-slide"><img src="img/telo-retro.jpg" alt="Telo mare retro"></div> -->
+          <div class="prod-slide"><img src="img/telo-01.jpg" alt="Fouta Prà de la Fam"></div>
+          <div class="prod-slide"><img src="img/telo-02.PNG" alt="Fouta dettaglio"></div>
+          <div class="prod-slide"><img src="img/telo-03.PNG" alt="Fouta lago"></div>
+          <div class="prod-slide"><img src="img/telo-04.PNG" alt="Fouta indossata"></div>
         </div>
-        <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+        <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+        <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
         <div class="slide-dots"></div>
         <span class="prod-badge" data-t="badge-best">Bestseller</span>
       </div>
       <div class="prod-body">
         <p class="prod-cat" data-t="telo-cat">Accessori · Mare & Lago</p>
-        <h3 class="prod-name" data-t="telo-name">Telo Mare Prà de la Fam</h3>
-        <p class="prod-desc" data-t="telo-desc">Morbido e capiente, con il logo del Prà de la Fam. Perfetto per le giornate sul Lago di Garda, sugli scogli o in spiaggia. Tessuto 100% cotone, stampa resistente ai lavaggi.</p>
+        <h3 class="prod-name" data-t="telo-name">Fouta <span class="toggle-icon">&#9660;</span></h3>
+        <p class="prod-desc" data-t="telo-desc">Fouta hammam in cotone, righe bianche su fondo azzurro lago. Logo Prà de la Fam stampato. Leggera, ad asciugatura rapida.</p>
         <div class="prod-footer">
-          <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="contact-avail">Contattaci per disponibilità</small></div>
-          <button class="prod-btn" onclick="scrollToContact('telo-name')" data-t="btn-info">Richiedi info →</button>
+          <div class="prod-price"><span>€ 18</span><small data-t="contact-avail">Disponibile in struttura</small></div>
+          <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('telo-name')" data-t="btn-info">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="prod-expand">
+        <div class="expand-inner">
+          <div>
+            <p class="expand-label">Materiale</p>
+            <p class="expand-val">100% cotone hammam<br>Leggera, ad asciugatura rapida<br>Righe bianche su fondo azzurro lago</p>
+          </div>
+          <div>
+            <p class="expand-label">Prezzo</p>
+            <span class="expand-price-big">€ 18</span>
+            <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('telo-name')">Richiedi info →</button>
+          </div>
+          <div>
+            <p class="expand-label">Disponibilità</p>
+            <p class="expand-val">Disponibile in struttura<br>durante l'apertura dell'hotel</p>
+          </div>
+          <div>
+            <p class="expand-label">Dettagli</p>
+            <p class="expand-val">Logo Prà de la Fam stampato<br>Ideale per lago, piscina e spiaggia</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CAPPELLINO -->
-    <div class="prod-card r d1">
+    <div class="prod-card r d1" onclick="toggleCard(this)">
       <div class="prod-img">
         <div class="prod-slides">
-          <div class="prod-slide"><div class="prod-slide-ph">🧢</div></div>
-          <!-- <div class="prod-slide"><img src="img/cappellino-fronte.jpg" alt="Cappellino fronte"></div> -->
-          <!-- <div class="prod-slide"><img src="img/cappellino-retro.jpg" alt="Cappellino retro"></div> -->
+          <div class="prod-slide"><img src="img/cappellino-01.PNG" alt="Cappellino fronte"></div>
+          <div class="prod-slide"><img src="img/cappellino-02.PNG" alt="Cappellino dettaglio"></div>
         </div>
-        <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+        <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+        <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
         <div class="slide-dots"></div>
       </div>
       <div class="prod-body">
         <p class="prod-cat" data-t="cap-cat">Accessori · Cappelleria</p>
-        <h3 class="prod-name" data-t="cap-name">Cappellino Prà de la Fam</h3>
-        <p class="prod-desc" data-t="cap-desc">Cappellino con visiera regolabile, ricamo del logo Prà de la Fam sul fronte. Ideale per escursioni sul Monte Baldo o giornate di vela sul Lago di Garda.</p>
+        <h3 class="prod-name" data-t="cap-name">Cappellino <span class="toggle-icon">&#9660;</span></h3>
+        <p class="prod-desc" data-t="cap-desc">Trucker cap bianco e nero con patch ricamata rossa. Logo sul fronte, "Since 1754" sulla chiusura posteriore. Visiera pre-curvata.</p>
         <div class="prod-footer">
-          <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="contact-avail">Contattaci per disponibilità</small></div>
-          <button class="prod-btn" onclick="scrollToContact('cap-name')" data-t="btn-info">Richiedi info →</button>
+          <div class="prod-price"><span>€ 24</span><small data-t="contact-avail">Disponibile in struttura</small></div>
+          <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('cap-name')" data-t="btn-info">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="prod-expand">
+        <div class="expand-inner">
+          <div>
+            <p class="expand-label">Modello</p>
+            <p class="expand-val">Trucker cap con rete posteriore<br>Visiera pre-curvata<br>Chiusura snapback regolabile</p>
+          </div>
+          <div>
+            <p class="expand-label">Prezzo</p>
+            <span class="expand-price-big">€ 24</span>
+            <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('cap-name')">Richiedi info →</button>
+          </div>
+          <div>
+            <p class="expand-label">Colori</p>
+            <div class="variant-chips">
+              <span class="chip">Bianco / Nero</span>
+            </div>
+          </div>
+          <div>
+            <p class="expand-label">Dettagli</p>
+            <p class="expand-val">Patch ricamata rossa sul fronte<br>"Since 1754" sulla chiusura<br>Taglia unica regolabile</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- T-SHIRT -->
-    <div class="prod-card r d2">
+    <div class="prod-card r d2" onclick="toggleCard(this)">
       <div class="prod-img">
         <div class="prod-slides">
-          <div class="prod-slide"><div class="prod-slide-ph">👕</div></div>
-          <!-- <div class="prod-slide"><img src="img/tshirt-fronte.jpg" alt="T-shirt fronte"></div> -->
-          <!-- <div class="prod-slide"><img src="img/tshirt-retro.jpg" alt="T-shirt retro"></div> -->
+          <div class="prod-slide"><img src="img/tshirt-01.PNG" alt="T-Shirt blu"></div>
+          <div class="prod-slide"><img src="img/tshirt-02.jpg" alt="T-Shirt bianca"></div>
+          <div class="prod-slide"><img src="img/tshirt-03.jpg" alt="T-Shirt grigio scuro"></div>
+          <div class="prod-slide"><img src="img/tshirt-04.jpg" alt="T-Shirt dettaglio"></div>
         </div>
-        <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+        <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+        <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
         <div class="slide-dots"></div>
         <span class="prod-badge dark" data-t="badge-uni">Unisex</span>
       </div>
       <div class="prod-body">
         <p class="prod-cat" data-t="tsh-cat">Abbigliamento · T-Shirt</p>
-        <h3 class="prod-name" data-t="tsh-name">T-Shirt Prà de la Fam</h3>
-        <p class="prod-desc" data-t="tsh-desc">T-shirt unisex in cotone organico con stampa minimal del logo e della sagoma del Lago di Garda. Disponibile in varie taglie e colori. Il souvenir autentico.</p>
+        <h3 class="prod-name" data-t="tsh-name">T-Shirt <span class="toggle-icon">&#9660;</span></h3>
+        <p class="prod-desc" data-t="tsh-desc">Grafica windsurf vintage anni '80. Disponibile in blu, bianca e grigio scuro. Taglie dalla S alla XXXL.</p>
         <div class="prod-footer">
-          <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="contact-avail">Contattaci per disponibilità</small></div>
-          <button class="prod-btn" onclick="scrollToContact('tsh-name')" data-t="btn-info">Richiedi info →</button>
+          <div class="prod-price"><span>€ 30</span><small data-t="contact-avail">Disponibile in struttura</small></div>
+          <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('tsh-name')" data-t="btn-info">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="prod-expand">
+        <div class="expand-inner">
+          <div>
+            <p class="expand-label">Taglie disponibili</p>
+            <div class="variant-chips">
+              <span class="chip">S</span><span class="chip">M</span><span class="chip">L</span>
+              <span class="chip">XL</span><span class="chip">XXL</span><span class="chip">XXXL</span>
+            </div>
+          </div>
+          <div>
+            <p class="expand-label">Prezzo</p>
+            <span class="expand-price-big">€ 30</span>
+            <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('tsh-name')">Richiedi info →</button>
+          </div>
+          <div>
+            <p class="expand-label">Colori</p>
+            <div class="variant-chips">
+              <span class="chip color-chip" style="background:#1a2f5e;border-color:#1a2f5e" title="Blu"></span>
+              <span class="chip color-chip" style="background:#f0f0f0;border-color:#ccc" title="Bianca"></span>
+              <span class="chip color-chip" style="background:#3a3a3a;border-color:#3a3a3a" title="Grigio scuro"></span>
+              <span class="chip">Blu</span><span class="chip">Bianca</span><span class="chip">Grigio</span>
+            </div>
+          </div>
+          <div>
+            <p class="expand-label">Dettagli</p>
+            <p class="expand-val">Grafica windsurf vintage anni '80<br>Unisex · Vestibilità regolare</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- INFRADITO -->
-    <div class="prod-card r">
+    <div class="prod-card r" onclick="toggleCard(this)">
       <div class="prod-img">
         <div class="prod-slides">
-          <div class="prod-slide"><div class="prod-slide-ph">🩴</div></div>
-          <!-- <div class="prod-slide"><img src="img/infradito-1.jpg" alt="Infradito"></div> -->
+          <div class="prod-slide"><img src="img/infradito-01.jpg" alt="Infradito Prà de la Fam"></div>
+          <div class="prod-slide"><img src="img/infradito-02.jpg" alt="Infradito suola"></div>
         </div>
-        <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+        <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+        <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
         <div class="slide-dots"></div>
       </div>
       <div class="prod-body">
         <p class="prod-cat" data-t="inf-cat">Calzature · Lago & Spiaggia</p>
-        <h3 class="prod-name" data-t="inf-name">Infradito Prà de la Fam</h3>
-        <p class="prod-desc" data-t="inf-desc">Infradito comode e resistenti con logo in rilievo. La compagna ideale per le passeggiate lungo il lungolago del Lago di Garda e le giornate in spiaggia.</p>
+        <h3 class="prod-name" data-t="inf-name">Infradito <span class="toggle-icon">&#9660;</span></h3>
+        <p class="prod-desc" data-t="inf-desc">Illustrazione toile de Jouy — gabbiano, limone, barca a vela. Logo e telefono stampati sulla suola.</p>
         <div class="prod-footer">
-          <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="contact-avail">Contattaci per disponibilità</small></div>
-          <button class="prod-btn" onclick="scrollToContact('inf-name')" data-t="btn-info">Richiedi info →</button>
+          <div class="prod-price"><span>€ 20</span><small data-t="contact-avail">Disponibile in struttura</small></div>
+          <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('inf-name')" data-t="btn-info">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="prod-expand">
+        <div class="expand-inner">
+          <div>
+            <p class="expand-label">Design</p>
+            <p class="expand-val">Illustrazione toile de Jouy<br>Gabbiano, limone, barca a vela<br>Logo e telefono sulla suola</p>
+          </div>
+          <div>
+            <p class="expand-label">Prezzo</p>
+            <span class="expand-price-big">€ 20</span>
+            <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('inf-name')">Richiedi info →</button>
+          </div>
+          <div>
+            <p class="expand-label">Disponibilità</p>
+            <p class="expand-val">Disponibile in struttura<br>durante l'apertura dell'hotel</p>
+          </div>
+          <div>
+            <p class="expand-label">Dettagli</p>
+            <p class="expand-val">Comode e resistenti<br>Perfette per lago e spiaggia</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- TOTE BAG -->
-    <div class="prod-card r d1">
+    <div class="prod-card r d1" onclick="toggleCard(this)">
       <div class="prod-img">
         <div class="prod-slides">
-          <div class="prod-slide"><div class="prod-slide-ph">🛍️</div></div>
-          <!-- <div class="prod-slide"><img src="img/totebag-fronte.jpg" alt="Tote bag fronte"></div> -->
-          <!-- <div class="prod-slide"><img src="img/totebag-retro.jpg" alt="Tote bag retro"></div> -->
+          <div class="prod-slide"><img src="img/totebag-01.jpg" alt="Tote Bag Prà de la Fam"></div>
+          <div class="prod-slide"><img src="img/totebag-02.jpg" alt="Tote Bag dettaglio"></div>
+          <div class="prod-slide"><img src="img/totebag-03.jpg" alt="Tote Bag stampa"></div>
+          <div class="prod-slide"><img src="img/totebag-04.jpg" alt="Tote Bag indossata"></div>
         </div>
-        <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+        <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+        <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
         <div class="slide-dots"></div>
         <span class="prod-badge" data-t="badge-eco">Eco-friendly</span>
       </div>
       <div class="prod-body">
         <p class="prod-cat" data-t="tot-cat">Accessori · Shopping Bag</p>
-        <h3 class="prod-name" data-t="tot-name">Tote Bag Prà de la Fam</h3>
-        <p class="prod-desc" data-t="tot-desc">Borsa in tela naturale resistente con logo e agrumi della limonaia del Lago di Garda. Capiente, leggera, riutilizzabile. La scelta sostenibile.</p>
+        <h3 class="prod-name" data-t="tot-name">Tote Bag <span class="toggle-icon">&#9660;</span></h3>
+        <p class="prod-desc" data-t="tot-desc">Tela naturale grezza, stampa fotografica — logo inciso nella sabbia del lungolago. Capiente, riutilizzabile.</p>
         <div class="prod-footer">
-          <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="contact-avail">Contattaci per disponibilità</small></div>
-          <button class="prod-btn" onclick="scrollToContact('tot-name')" data-t="btn-info">Richiedi info →</button>
+          <div class="prod-price"><span>€ 10</span><small data-t="contact-avail">Disponibile in struttura</small></div>
+          <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('tot-name')" data-t="btn-info">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="prod-expand">
+        <div class="expand-inner">
+          <div>
+            <p class="expand-label">Materiale</p>
+            <p class="expand-val">Tela naturale grezza<br>Stampa fotografica<br>Logo inciso nella sabbia del lungolago</p>
+          </div>
+          <div>
+            <p class="expand-label">Prezzo</p>
+            <span class="expand-price-big">€ 10</span>
+            <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('tot-name')">Richiedi info →</button>
+          </div>
+          <div>
+            <p class="expand-label">Caratteristiche</p>
+            <p class="expand-val">Capiente e leggera<br>Riutilizzabile · Eco-friendly</p>
+          </div>
+          <div>
+            <p class="expand-label">Disponibilità</p>
+            <p class="expand-val">Disponibile in struttura<br>durante l'apertura dell'hotel</p>
+          </div>
         </div>
       </div>
     </div>
@@ -393,7 +540,7 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
     <div class="prod-grid">
 
       <!-- OLIO 750ml -->
-      <div class="prod-card prod-card-dark r">
+      <div class="prod-card prod-card-dark r" onclick="toggleCard(this)">
         <div class="prod-img">
           <div class="prod-slides">
             <div class="prod-slide">
@@ -406,26 +553,46 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
                 </div>
               </div>
             </div>
-            <!-- <div class="prod-slide"><img src="img/olio750-fronte.jpg" alt="Olio EVO 750ml fronte"></div> -->
-            <!-- <div class="prod-slide"><img src="img/olio750-retro.jpg" alt="Olio EVO 750ml etichetta"></div> -->
           </div>
-          <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+          <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+          <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
           <div class="slide-dots"></div>
           <span class="prod-badge" data-t="badge-bio">Biologico</span>
         </div>
         <div class="prod-body">
           <p class="prod-cat" data-t="oil1-cat">Culinaria · Olio d'Oliva</p>
-          <h3 class="prod-name" data-t="oil1-name">Olio EVO Biologico</h3>
-          <p class="prod-desc" data-t="oil1-desc">Olio extravergine d'oliva biologico prodotto dalle olive coltivate sulle terrazze del Lago di Garda. Raccolta a mano, frangitura a freddo entro 24 ore. Aroma fruttato, gusto equilibrato con note erbacee. Certificato biologico.</p>
+          <h3 class="prod-name" data-t="oil1-name">Olio EVO Biologico <span class="toggle-icon">&#9660;</span></h3>
+          <p class="prod-desc" data-t="oil1-desc">Olive coltivate sulle terrazze del Lago di Garda. Raccolta a mano, frangitura a freddo entro 24 ore. Aroma fruttato, note erbacee. Certificato biologico.</p>
           <div class="prod-footer">
-            <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="oil1-size">Formato 750 ml · Bio certificato</small></div>
-            <button class="prod-btn" onclick="scrollToContact('oil1-name')" data-t="btn-info">Richiedi info →</button>
+            <div class="prod-price"><span>€ 26</span><small data-t="oil1-size">750 ml · Bio certificato</small></div>
+            <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('oil1-name')" data-t="btn-info">Richiedi info →</button>
+          </div>
+        </div>
+        <div class="prod-expand">
+          <div class="expand-inner">
+            <div>
+              <p class="expand-label">Produzione</p>
+              <p class="expand-val">Olive delle terrazze del Lago di Garda<br>Raccolta a mano<br>Frangitura a freddo entro 24 ore<br>Certificato biologico</p>
+            </div>
+            <div>
+              <p class="expand-label">Prezzo</p>
+              <span class="expand-price-big">€ 26</span>
+              <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('oil1-name')">Richiedi info →</button>
+            </div>
+            <div>
+              <p class="expand-label">Note di degustazione</p>
+              <p class="expand-val">Aroma fruttato<br>Gusto equilibrato<br>Note erbacee al finale</p>
+            </div>
+            <div>
+              <p class="expand-label">Formato & disponibilità</p>
+              <p class="expand-val">750 ml · Produzione limitata<br>Disponibilità stagionale</p>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- OLIO LIMONE 250ml -->
-      <div class="prod-card prod-card-dark r d1">
+      <div class="prod-card prod-card-dark r d1" onclick="toggleCard(this)">
         <div class="prod-img">
           <div class="prod-slides">
             <div class="prod-slide">
@@ -439,23 +606,44 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
                 <span style="font-size:2rem;position:absolute;bottom:.8rem;right:1.2rem;opacity:.8">🍋</span>
               </div>
             </div>
-            <!-- <div class="prod-slide"><img src="img/olio250-fronte.jpg" alt="Olio limone 250ml fronte"></div> -->
-            <!-- <div class="prod-slide"><img src="img/olio250-retro.jpg" alt="Olio limone 250ml etichetta"></div> -->
           </div>
-          <button class="slide-prev">&#8249;</button><button class="slide-next">&#8250;</button>
+          <button class="slide-prev" onclick="event.stopPropagation()">&#8249;</button>
+          <button class="slide-next" onclick="event.stopPropagation()">&#8250;</button>
           <div class="slide-dots"></div>
           <span class="prod-badge" style="background:var(--gold2)" data-t="badge-arom">Aromatizzato</span>
         </div>
         <div class="prod-body">
           <p class="prod-cat" data-t="oil2-cat">Culinaria · Olio Aromatizzato</p>
-          <h3 class="prod-name" data-t="oil2-name">Olio EVO Bio al Limone</h3>
-          <p class="prod-desc" data-t="oil2-desc">Olio extravergine d'oliva biologico aromatizzato al limone della nostra limonaia del Prà de la Fam. Spremitura a freddo con le scorze appena raccolte. Perfetto su pesce, insalate, carpacci e formaggi freschi.</p>
+          <h3 class="prod-name" data-t="oil2-name">Olio EVO Bio al Limone <span class="toggle-icon">&#9660;</span></h3>
+          <p class="prod-desc" data-t="oil2-desc">Extravergine aromatizzato con limoni della nostra limonaia. Spremitura a freddo con scorze appena raccolte. Perfetto su pesce, insalate, carpacci e formaggi freschi.</p>
           <div class="prod-footer">
-            <div class="prod-price"><span data-t="on-request">su richiesta</span><small data-t="oil2-size">250 ml · Limonaia del Prà de la Fam</small></div>
-            <button class="prod-btn" onclick="scrollToContact('oil2-name')" data-t="btn-info">Richiedi info →</button>
+            <div class="prod-price"><span>€ 14</span><small data-t="oil2-size">250 ml · Limonaia del Prà de la Fam</small></div>
+            <button class="prod-btn" onclick="event.stopPropagation();scrollToContact('oil2-name')" data-t="btn-info">Richiedi info →</button>
+          </div>
+        </div>
+        <div class="prod-expand">
+          <div class="expand-inner">
+            <div>
+              <p class="expand-label">Produzione</p>
+              <p class="expand-val">Extravergine biologico<br>Limoni della nostra limonaia<br>Spremitura a freddo con scorze fresche<br>Certificato biologico</p>
+            </div>
+            <div>
+              <p class="expand-label">Prezzo</p>
+              <span class="expand-price-big">€ 14</span>
+              <button class="expand-cta" onclick="event.stopPropagation();scrollToContact('oil2-name')">Richiedi info →</button>
+            </div>
+            <div>
+              <p class="expand-label">Abbinamenti</p>
+              <p class="expand-val">Pesce alla griglia<br>Insalate e carpacci<br>Formaggi freschi<br>Verdure al vapore</p>
+            </div>
+            <div>
+              <p class="expand-label">Formato & disponibilità</p>
+              <p class="expand-val">250 ml · Produzione limitata<br>Disponibilità stagionale</p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <div class="quality-grid r d2">
@@ -495,7 +683,7 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
           <select id="f-prodotto">
             <option value="" data-t="f-prod-ph">— Seleziona un prodotto —</option>
             <optgroup data-label-t="opt-merch" label="Merchandising">
-              <option data-t="telo-name">Telo Mare</option>
+              <option data-t="telo-name">Fouta</option>
               <option data-t="cap-name">Cappellino</option>
               <option data-t="tsh-name">T-Shirt</option>
               <option data-t="inf-name">Infradito</option>
@@ -552,9 +740,6 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
 </footer>
 
 <script>
-// ══════════════════════════════════════════════════════════════
-// TRANSLATIONS
-// ══════════════════════════════════════════════════════════════
 const T = {
   it: {
     'nav-merch':'Merchandising','nav-cul':'Culinaria','nav-cont':'Contatti','nav-cta':'Richiedi info →',
@@ -564,24 +749,24 @@ const T = {
     's1-idx':'01 — Abbigliamento & Accessori','s1-title':'Merch &\n<em>Lifestyle</em>',
     's1-meta':'Porta con te un ricordo autentico del Lago di Garda. Ogni pezzo racconta la storia del Prà de la Fam.',
     'badge-best':'Bestseller','badge-uni':'Unisex','badge-eco':'Eco-friendly','badge-bio':'Biologico','badge-arom':'Aromatizzato',
-    'telo-cat':'Accessori · Mare & Lago','telo-name':'Telo Mare Prà de la Fam',
-    'telo-desc':'Morbido e capiente, con il logo del Prà de la Fam. Perfetto per le giornate sul Lago di Garda, sugli scogli o in spiaggia. Tessuto 100% cotone, stampa resistente ai lavaggi.',
-    'cap-cat':'Accessori · Cappelleria','cap-name':'Cappellino Prà de la Fam',
-    'cap-desc':'Cappellino con visiera regolabile, ricamo del logo Prà de la Fam sul fronte. Ideale per escursioni sul Monte Baldo o giornate di vela sul Lago di Garda.',
-    'tsh-cat':'Abbigliamento · T-Shirt','tsh-name':'T-Shirt Prà de la Fam',
-    'tsh-desc':'T-shirt unisex in cotone organico con stampa minimal del logo e della sagoma del Lago di Garda. Disponibile in varie taglie e colori. Il souvenir autentico.',
-    'inf-cat':'Calzature · Lago & Spiaggia','inf-name':'Infradito Prà de la Fam',
-    'inf-desc':'Infradito comode e resistenti con logo in rilievo. La compagna ideale per le passeggiate lungo il lungolago del Lago di Garda e le giornate in spiaggia.',
-    'tot-cat':'Accessori · Shopping Bag','tot-name':'Tote Bag Prà de la Fam',
-    'tot-desc':'Borsa in tela naturale resistente con logo e agrumi della limonaia del Lago di Garda. Capiente, leggera, riutilizzabile. La scelta sostenibile.',
-    'on-request':'su richiesta','contact-avail':'Contattaci per disponibilità','btn-info':'Richiedi info →',
+    'telo-cat':'Accessori · Mare & Lago','telo-name':'Fouta',
+    'telo-desc':'Fouta hammam in cotone, righe bianche su fondo azzurro lago. Logo Prà de la Fam stampato. Leggera, ad asciugatura rapida.',
+    'cap-cat':'Accessori · Cappelleria','cap-name':'Cappellino',
+    'cap-desc':'Trucker cap bianco e nero con patch ricamata rossa. Logo sul fronte, "Since 1754" sulla chiusura posteriore. Visiera pre-curvata.',
+    'tsh-cat':'Abbigliamento · T-Shirt','tsh-name':'T-Shirt',
+    'tsh-desc':'Grafica windsurf vintage anni \'80. Disponibile in blu, bianca e grigio scuro. Taglie dalla S alla XXXL.',
+    'inf-cat':'Calzature · Lago & Spiaggia','inf-name':'Infradito',
+    'inf-desc':'Illustrazione toile de Jouy — gabbiano, limone, barca a vela. Logo e telefono stampati sulla suola.',
+    'tot-cat':'Accessori · Shopping Bag','tot-name':'Tote Bag',
+    'tot-desc':'Tela naturale grezza, stampa fotografica — logo inciso nella sabbia del lungolago. Capiente, riutilizzabile.',
+    'contact-avail':'Disponibile in struttura','btn-info':'Richiedi info →',
     's2-idx':'02 — Dalla limonaia alla tavola','s2-title':'Culinaria &\n<em>Sapori del Lago</em>',
     's2-meta':'Prodotti biologici coltivati sul Lago di Garda. La qualità di una terra che profuma di agrumi e ulivi da secoli.',
     'oil1-cat':'Culinaria · Olio d\'Oliva','oil1-name':'Olio EVO Biologico',
-    'oil1-desc':'Olio extravergine d\'oliva biologico prodotto dalle olive coltivate sulle terrazze del Lago di Garda. Raccolta a mano, frangitura a freddo entro 24 ore. Aroma fruttato, gusto equilibrato con note erbacee. Certificato biologico.',
-    'oil1-size':'Formato 750 ml · Bio certificato',
+    'oil1-desc':'Olive coltivate sulle terrazze del Lago di Garda. Raccolta a mano, frangitura a freddo entro 24 ore. Aroma fruttato, note erbacee. Certificato biologico.',
+    'oil1-size':'750 ml · Bio certificato',
     'oil2-cat':'Culinaria · Olio Aromatizzato','oil2-name':'Olio EVO Bio al Limone',
-    'oil2-desc':'Olio extravergine d\'oliva biologico aromatizzato al limone della nostra limonaia del Prà de la Fam. Spremitura a freddo con le scorze appena raccolte. Perfetto su pesce, insalate, carpacci e formaggi freschi.',
+    'oil2-desc':'Extravergine aromatizzato con limoni della nostra limonaia. Spremitura a freddo con scorze appena raccolte. Perfetto su pesce, insalate, carpacci e formaggi freschi.',
     'oil2-size':'250 ml · Limonaia del Prà de la Fam',
     'q1-name':'Biologico Certificato','q1-desc':'Nessun pesticida, nessun additivo. Solo olive e natura del Lago di Garda.',
     'q2-name':'Raccolta a Mano','q2-desc':'Le olive vengono raccolte a mano sulle terrazze affacciate sul lago.',
@@ -610,24 +795,24 @@ const T = {
     's1-idx':'01 — Clothing & Accessories','s1-title':'Merch &\n<em>Lifestyle</em>',
     's1-meta':'Take an authentic piece of Lake Garda home. Every item tells the story of Prà de la Fam.',
     'badge-best':'Bestseller','badge-uni':'Unisex','badge-eco':'Eco-friendly','badge-bio':'Organic','badge-arom':'Flavoured',
-    'telo-cat':'Accessories · Sea & Lake','telo-name':'Beach Towel Prà de la Fam',
-    'telo-desc':'Soft and roomy, with the Prà de la Fam logo. Perfect for days on Lake Garda, the rocks or the beach. 100% cotton, colour-fast print.',
-    'cap-cat':'Accessories · Headwear','cap-name':'Cap Prà de la Fam',
-    'cap-desc':'Adjustable cap with the Prà de la Fam logo embroidered on the front. Perfect for hikes on Monte Baldo or sailing days on Lake Garda.',
-    'tsh-cat':'Clothing · T-Shirt','tsh-name':'T-Shirt Prà de la Fam',
-    'tsh-desc':'Unisex organic cotton t-shirt with a minimal print of the logo and the silhouette of Lake Garda. Available in various sizes and colours. The authentic souvenir.',
-    'inf-cat':'Footwear · Lake & Beach','inf-name':'Flip Flops Prà de la Fam',
-    'inf-desc':'Comfortable and durable flip flops with an embossed logo. The perfect companion for walks along Lake Garda and beach days.',
-    'tot-cat':'Accessories · Shopping Bag','tot-name':'Tote Bag Prà de la Fam',
-    'tot-desc':'Sturdy natural canvas bag with the logo and citrus from the Lake Garda lemon house. Roomy, light, reusable. The sustainable choice.',
-    'on-request':'on request','contact-avail':'Contact us for availability','btn-info':'Request info →',
+    'telo-cat':'Accessories · Sea & Lake','telo-name':'Fouta',
+    'telo-desc':'Hammam cotton fouta, white stripes on lake-blue background. Prà de la Fam logo printed. Lightweight, quick-drying.',
+    'cap-cat':'Accessories · Headwear','cap-name':'Cap',
+    'cap-desc':'Black and white trucker cap with red embroidered patch. Logo on front, "Since 1754" on the back closure. Pre-curved visor.',
+    'tsh-cat':'Clothing · T-Shirt','tsh-name':'T-Shirt',
+    'tsh-desc':'Vintage 80s windsurfing graphic. Available in blue, white and dark grey. Sizes from S to XXXL.',
+    'inf-cat':'Footwear · Lake & Beach','inf-name':'Flip Flops',
+    'inf-desc':'Toile de Jouy illustration — seagull, lemon, sailboat. Logo and phone number printed on the sole.',
+    'tot-cat':'Accessories · Shopping Bag','tot-name':'Tote Bag',
+    'tot-desc':'Raw natural canvas, photographic print — logo carved in the sand of the lakeside. Roomy, reusable.',
+    'contact-avail':'Available on-site','btn-info':'Request info →',
     's2-idx':'02 — From the lemon house to your table','s2-title':'Culinary &\n<em>Flavours of the Lake</em>',
     's2-meta':'Organic products grown on Lake Garda. The quality of a land that has smelled of citrus and olive trees for centuries.',
     'oil1-cat':'Culinary · Olive Oil','oil1-name':'Organic EVO Olive Oil',
-    'oil1-desc':'Organic extra virgin olive oil made from olives grown on the terraces of Lake Garda. Hand-picked, cold-pressed within 24 hours. Fruity aroma, balanced flavour with herbal notes. Certified organic.',
-    'oil1-size':'750 ml bottle · Certified organic',
+    'oil1-desc':'Olives grown on the terraces of Lake Garda. Hand-picked, cold-pressed within 24 hours. Fruity aroma, herbal notes. Certified organic.',
+    'oil1-size':'750 ml · Certified organic',
     'oil2-cat':'Culinary · Flavoured Oil','oil2-name':'Organic Lemon EVO Oil',
-    'oil2-desc':'Organic extra virgin olive oil flavoured with lemons from our Prà de la Fam lemon house. Cold-pressed together with freshly harvested lemon zest. Perfect on fish, salads, carpaccio and fresh cheese.',
+    'oil2-desc':'Extra virgin flavoured with lemons from our lemon house. Cold-pressed with freshly harvested zest. Perfect on fish, salads, carpaccio and fresh cheese.',
     'oil2-size':'250 ml · Prà de la Fam lemon house',
     'q1-name':'Certified Organic','q1-desc':'No pesticides, no additives. Just olives and the nature of Lake Garda.',
     'q2-name':'Hand-Picked','q2-desc':'Olives are hand-picked on the terraces overlooking the lake.',
@@ -656,39 +841,39 @@ const T = {
     's1-idx':'01 — Kleidung & Accessoires','s1-title':'Merch &\n<em>Lifestyle</em>',
     's1-meta':'Nehmen Sie eine authentische Erinnerung an den Gardasee mit. Jedes Stück erzählt die Geschichte des Prà de la Fam.',
     'badge-best':'Bestseller','badge-uni':'Unisex','badge-eco':'Umweltfreundlich','badge-bio':'Bio','badge-arom':'Aromatisiert',
-    'telo-cat':'Accessoires · Meer & See','telo-name':'Strandtuch Prà de la Fam',
-    'telo-desc':'Weich und geräumig, mit dem Logo des Prà de la Fam. Ideal für Tage am Gardasee, auf den Felsen oder am Strand. 100% Baumwolle, waschbeständiger Druck.',
-    'cap-cat':'Accessoires · Kopfbedeckung','cap-name':'Kappe Prà de la Fam',
-    'cap-desc':'Verstellbare Kappe mit gesticktem Prà de la Fam-Logo auf der Vorderseite. Ideal für Wanderungen auf dem Monte Baldo oder Segeltage am Gardasee.',
-    'tsh-cat':'Kleidung · T-Shirt','tsh-name':'T-Shirt Prà de la Fam',
-    'tsh-desc':'Unisex-T-Shirt aus Bio-Baumwolle mit minimalem Druck des Logos und der Silhouette des Gardasees. In verschiedenen Größen und Farben erhältlich. Das authentische Souvenir.',
-    'inf-cat':'Schuhe · See & Strand','inf-name':'Flip-Flops Prà de la Fam',
-    'inf-desc':'Bequeme und robuste Flip-Flops mit geprägtem Logo. Der ideale Begleiter für Spaziergänge am Gardasee und Strandtage.',
-    'tot-cat':'Accessoires · Tragetasche','tot-name':'Tote Bag Prà de la Fam',
-    'tot-desc':'Robuste Tasche aus Naturleinen mit Logo und Zitrusfrüchten der Limonaia am Gardasee. Geräumig, leicht, wiederverwendbar. Die nachhaltige Wahl.',
-    'on-request':'auf Anfrage','contact-avail':'Kontaktieren Sie uns für Verfügbarkeit','btn-info':'Info anfordern →',
+    'telo-cat':'Accessoires · Meer & See','telo-name':'Fouta',
+    'telo-desc':'Hammam-Fouta aus Baumwolle, weiße Streifen auf See-blauem Grund. Prà de la Fam Logo aufgedruckt. Leicht, schnelltrocknend.',
+    'cap-cat':'Accessoires · Kopfbedeckung','cap-name':'Kappe',
+    'cap-desc':'Schwarz-weiße Trucker Cap mit rotem besticktem Patch. Logo vorne, "Since 1754" am Verschluss. Vorgebogener Schirm.',
+    'tsh-cat':'Kleidung · T-Shirt','tsh-name':'T-Shirt',
+    'tsh-desc':'Vintage Windsurfgrafik der 80er Jahre. Erhältlich in Blau, Weiß und Dunkelgrau. Größen von S bis XXXL.',
+    'inf-cat':'Schuhe · See & Strand','inf-name':'Flip-Flops',
+    'inf-desc':'Toile de Jouy Illustration — Möwe, Zitrone, Segelboot. Logo und Telefonnummer auf der Sohle gedruckt.',
+    'tot-cat':'Accessoires · Tragetasche','tot-name':'Tote Bag',
+    'tot-desc':'Rohes Naturleinen, fotografischer Druck — Logo in den Sand des Seeufers geritzt. Geräumig, wiederverwendbar.',
+    'contact-avail':'Vor Ort erhältlich','btn-info':'Info anfordern →',
     's2-idx':'02 — Von der Limonaia auf Ihren Tisch','s2-title':'Kulinarik &\n<em>Geschmack des Sees</em>',
     's2-meta':'Biologisch angebaute Produkte am Gardasee. Die Qualität eines Landes, das seit Jahrhunderten nach Zitrusfrüchten und Olivenbäumen duftet.',
     'oil1-cat':'Kulinarik · Olivenöl','oil1-name':'Bio Olivenöl extra vergine',
-    'oil1-desc':'Biologisches natives Olivenöl extra aus Oliven, die auf den Terrassen des Gardasees angebaut werden. Handgepflückt, kaltgepresst innerhalb von 24 Stunden. Fruchtiges Aroma, ausgewogener Geschmack mit Kräuternoten. Bio-zertifiziert.',
-    'oil1-size':'750 ml Flasche · Bio-zertifiziert',
+    'oil1-desc':'Oliven von den Terrassen des Gardasees. Handgepflückt, kaltgepresst innerhalb von 24 Stunden. Fruchtiges Aroma, Kräuternoten. Bio-zertifiziert.',
+    'oil1-size':'750 ml · Bio-zertifiziert',
     'oil2-cat':'Kulinarik · Aromatisiertes Öl','oil2-name':'Bio Zitronen-Olivenöl',
-    'oil2-desc':'Biologisches natives Olivenöl extra, aromatisiert mit Zitronen unserer Prà de la Fam Limonaia. Kaltgepresst mit frisch geernteten Zitronenschalen. Perfekt zu Fisch, Salaten, Carpaccio und Frischkäse.',
+    'oil2-desc':'Natives Olivenöl extra, aromatisiert mit Zitronen aus unserer Limonaia. Kaltgepresst mit frisch geernteten Schalen. Perfekt zu Fisch, Salaten, Carpaccio und Frischkäse.',
     'oil2-size':'250 ml · Limonaia Prà de la Fam',
     'q1-name':'Bio-zertifiziert','q1-desc':'Keine Pestizide, keine Zusätze. Nur Oliven und die Natur des Gardasees.',
     'q2-name':'Handgepflückt','q2-desc':'Die Oliven werden auf den Terrassen mit Seeblick von Hand gepflückt.',
-    'q3-name':'Kaltgepresst','q3-desc':'Innerhalb von 24 Stunden nach der Ernte kaltgepresst, um Aromen und Antioxidantien zu erhalten.',
-    'q4-name':'Saisonale Verfügbarkeit','q4-desc':'Begrenzte Produktion. Kontaktieren Sie uns, um die aktuelle Verfügbarkeit zu prüfen.',
+    'q3-name':'Kaltgepresst','q3-desc':'Innerhalb von 24 Stunden kaltgepresst, um Aromen und Antioxidantien zu erhalten.',
+    'q4-name':'Saisonale Verfügbarkeit','q4-desc':'Begrenzte Produktion. Kontaktieren Sie uns für aktuelle Verfügbarkeit.',
     'ct-tag':'Möchten Sie mehr wissen?','ct-title':'Schreiben Sie uns,\n<em>wir antworten.</em>',
-    'ct-desc':'Alle Produkte der Bottega del Prà sind direkt vor Ort oder auf Anfrage erhältlich. Füllen Sie das Formular aus für Verfügbarkeit, Preise und Versand.',
+    'ct-desc':'Alle Produkte der Bottega del Prà sind direkt vor Ort oder auf Anfrage erhältlich.',
     'ci-where':'Wo wir sind','ci-avail':'Verfügbarkeit','ci-avail-val':'Vor Ort während der Öffnungszeiten des Hotels erhältlich.','ci-phone':'Telefon',
     'form-title':'Anfrage senden','form-sub':'Füllen Sie das Formular aus und wir melden uns so schnell wie möglich.',
     'f-nome-lbl':'Vorname *','f-nome-ph':'Hans','f-cog-lbl':'Nachname','f-cog-ph':'Müller',
     'f-prod-lbl':'Produkt von Interesse','f-prod-ph':'— Produkt auswählen —',
     'opt-merch':'Merchandise','opt-cul':'Kulinarik','opt-all':'Alle Produkte / Allgemeine Informationen',
     'f-msg-lbl':'Nachricht *','f-msg-ph':'Schreiben Sie Ihre Anfrage hier...',
-    'form-btn':'Anfrage senden →','form-note':'Ihr E-Mail-Programm öffnet sich mit der vorausgefüllten Nachricht. Senden Sie diese, um Ihre Anfrage abzuschließen.',
-    'form-ok':'✅ <strong>Fertig!</strong> Ihr E-Mail-Programm hat sich mit der fertigen Nachricht geöffnet. Senden Sie diese, um Ihre Anfrage abzuschließen — wir antworten bald.',
+    'form-btn':'Anfrage senden →','form-note':'Ihr E-Mail-Programm öffnet sich mit der vorausgefüllten Nachricht.',
+    'form-ok':'✅ <strong>Fertig!</strong> Ihr E-Mail-Programm hat sich geöffnet. Senden Sie die Nachricht — wir antworten bald.',
     'foot-tag':'Prà de la Fam — Hotel & Apartments am Gardasee.\nVia Gardesana, 7 · Porto di Tignale · 25080 Tignale (BS)',
     'foot-col1':'Laden','foot-col2':'Prà de la Fam',
     'foot-main':'Hauptwebsite →','foot-book':'Zimmer buchen','foot-eco':'Limonaia Museum','foot-back':'← Zurück zur Hauptwebsite',
@@ -702,39 +887,39 @@ const T = {
     's1-idx':'01 — Vêtements & Accessoires','s1-title':'Boutique &\n<em>Lifestyle</em>',
     's1-meta':'Rapportez un souvenir authentique du Lac de Garde. Chaque pièce raconte l\'histoire du Prà de la Fam.',
     'badge-best':'Bestseller','badge-uni':'Unisexe','badge-eco':'Éco-responsable','badge-bio':'Biologique','badge-arom':'Aromatisé',
-    'telo-cat':'Accessoires · Mer & Lac','telo-name':'Serviette de plage Prà de la Fam',
-    'telo-desc':'Douce et spacieuse, avec le logo du Prà de la Fam. Parfaite pour les journées sur le Lac de Garde, sur les rochers ou à la plage. 100% coton, impression résistante aux lavages.',
-    'cap-cat':'Accessoires · Chapellerie','cap-name':'Casquette Prà de la Fam',
-    'cap-desc':'Casquette à visière réglable avec le logo Prà de la Fam brodé sur le devant. Idéale pour les randonnées sur le Monte Baldo ou les journées de voile sur le Lac de Garde.',
-    'tsh-cat':'Vêtements · T-Shirt','tsh-name':'T-Shirt Prà de la Fam',
-    'tsh-desc':'T-shirt unisexe en coton biologique avec impression minimaliste du logo et de la silhouette du Lac de Garde. Disponible en différentes tailles et couleurs. Le souvenir authentique.',
-    'inf-cat':'Chaussures · Lac & Plage','inf-name':'Tongs Prà de la Fam',
-    'inf-desc':'Tongs confortables et résistantes avec logo en relief. Le compagnon idéal pour les promenades au bord du Lac de Garde et les journées à la plage.',
-    'tot-cat':'Accessoires · Sac shopping','tot-name':'Tote Bag Prà de la Fam',
-    'tot-desc':'Sac en toile naturelle résistante avec logo et agrumes de la limonaia du Lac de Garde. Spacieux, léger, réutilisable. Le choix durable.',
-    'on-request':'sur demande','contact-avail':'Contactez-nous pour la disponibilité','btn-info':'Demander infos →',
+    'telo-cat':'Accessoires · Mer & Lac','telo-name':'Fouta',
+    'telo-desc':'Fouta hammam en coton, rayures blanches sur fond bleu lac. Logo Prà de la Fam imprimé. Légère, à séchage rapide.',
+    'cap-cat':'Accessoires · Chapellerie','cap-name':'Casquette',
+    'cap-desc':'Casquette trucker noir et blanc avec patch brodé rouge. Logo devant, "Since 1754" à l\'arrière. Visière pré-courbée.',
+    'tsh-cat':'Vêtements · T-Shirt','tsh-name':'T-Shirt',
+    'tsh-desc':'Graphique windsurf vintage années 80. Disponible en bleu, blanc et gris foncé. Tailles de S à XXXL.',
+    'inf-cat':'Chaussures · Lac & Plage','inf-name':'Tongs',
+    'inf-desc':'Illustration toile de Jouy — mouette, citron, voilier. Logo et téléphone imprimés sur la semelle.',
+    'tot-cat':'Accessoires · Sac shopping','tot-name':'Tote Bag',
+    'tot-desc':'Toile naturelle brute, impression photographique — logo gravé dans le sable du bord du lac. Spacieux, réutilisable.',
+    'contact-avail':'Disponible sur place','btn-info':'Demander infos →',
     's2-idx':'02 — De la limonaia à votre table','s2-title':'Gastronomie &\n<em>Saveurs du Lac</em>',
     's2-meta':'Produits biologiques cultivés sur le Lac de Garde. La qualité d\'une terre qui sent les agrumes et les oliviers depuis des siècles.',
     'oil1-cat':'Gastronomie · Huile d\'olive','oil1-name':'Huile d\'olive bio extra vierge',
-    'oil1-desc':'Huile d\'olive extra vierge biologique produite à partir d\'olives cultivées sur les terrasses du Lac de Garde. Cueillette à la main, extraction à froid dans les 24 heures. Arôme fruité, goût équilibré avec des notes herbacées. Certifié biologique.',
-    'oil1-size':'Bouteille 750 ml · Certifié bio',
+    'oil1-desc':'Olives des terrasses du Lac de Garde. Cueillette à la main, extraction à froid en 24 heures. Arôme fruité, notes herbacées. Certifié biologique.',
+    'oil1-size':'750 ml · Certifié bio',
     'oil2-cat':'Gastronomie · Huile aromatisée','oil2-name':'Huile EVO bio au citron',
-    'oil2-desc':'Huile d\'olive extra vierge biologique aromatisée au citron de notre limonaia du Prà de la Fam. Pressée à froid avec des zestes de citron fraîchement cueillis. Parfaite sur le poisson, les salades, les carpaccios et les fromages frais.',
+    'oil2-desc':'Extra vierge aromatisée avec des citrons de notre limonaia. Pressée à froid avec des zestes fraîchement cueillis. Parfaite sur poisson, salades, carpaccios et fromages frais.',
     'oil2-size':'250 ml · Limonaia du Prà de la Fam',
     'q1-name':'Certifié biologique','q1-desc':'Aucun pesticide, aucun additif. Seulement des olives et la nature du Lac de Garde.',
     'q2-name':'Cueillette à la main','q2-desc':'Les olives sont cueillies à la main sur les terrasses surplombant le lac.',
-    'q3-name':'Extraction à froid','q3-desc':'Extrait à froid dans les 24 heures suivant la récolte pour préserver les arômes et les antioxydants.',
-    'q4-name':'Disponibilité saisonnière','q4-desc':'Production limitée. Contactez-nous pour vérifier la disponibilité actuelle.',
+    'q3-name':'Extraction à froid','q3-desc':'Extrait à froid en 24 heures pour préserver les arômes et les antioxydants.',
+    'q4-name':'Disponibilité saisonnière','q4-desc':'Production limitée. Contactez-nous pour vérifier la disponibilité.',
     'ct-tag':'Vous voulez en savoir plus ?','ct-title':'Écrivez-nous,\n<em>nous répondons.</em>',
-    'ct-desc':'Tous les produits de la Bottega del Prà sont disponibles directement sur place ou sur demande. Remplissez le formulaire pour la disponibilité, les prix et les expéditions.',
-    'ci-where':'Où nous trouver','ci-avail':'Disponibilité','ci-avail-val':'Disponibles sur place pendant les heures d\'ouverture de l\'hôtel.','ci-phone':'Téléphone',
-    'form-title':'Envoyer une demande','form-sub':'Remplissez le formulaire et nous vous répondrons dans les plus brefs délais.',
+    'ct-desc':'Tous les produits sont disponibles sur place ou sur demande.',
+    'ci-where':'Où nous trouver','ci-avail':'Disponibilité','ci-avail-val':'Disponibles sur place pendant les heures d\'ouverture.','ci-phone':'Téléphone',
+    'form-title':'Envoyer une demande','form-sub':'Remplissez le formulaire et nous vous répondrons rapidement.',
     'f-nome-lbl':'Prénom *','f-nome-ph':'Jean','f-cog-lbl':'Nom','f-cog-ph':'Dupont',
     'f-prod-lbl':'Produit souhaité','f-prod-ph':'— Sélectionner un produit —',
     'opt-merch':'Boutique','opt-cul':'Gastronomie','opt-all':'Tous les produits / Informations générales',
     'f-msg-lbl':'Message *','f-msg-ph':'Écrivez votre demande ici...',
-    'form-btn':'Envoyer la demande →','form-note':'Votre client de messagerie s\'ouvrira avec le message pré-rempli. Envoyez-le pour finaliser votre demande.',
-    'form-ok':'✅ <strong>Parfait !</strong> Votre messagerie s\'est ouverte avec le message prêt à envoyer. Envoyez-le pour finaliser votre demande — nous vous répondrons bientôt.',
+    'form-btn':'Envoyer la demande →','form-note':'Votre messagerie s\'ouvrira avec le message pré-rempli.',
+    'form-ok':'✅ <strong>Parfait !</strong> Votre messagerie s\'est ouverte. Envoyez le message — nous vous répondrons bientôt.',
     'foot-tag':'Prà de la Fam — Hôtel & Appartements sur le Lac de Garde.\nVia Gardesana, 7 · Porto di Tignale · 25080 Tignale (BS)',
     'foot-col1':'Boutique','foot-col2':'Prà de la Fam',
     'foot-main':'Site principal →','foot-book':'Réserver une chambre','foot-eco':'Musée Limonaia','foot-back':'← Retour au site principal',
@@ -748,39 +933,39 @@ const T = {
     's1-idx':'01 — Ropa & Accesorios','s1-title':'Tienda &\n<em>Lifestyle</em>',
     's1-meta':'Llévate un recuerdo auténtico del Lago de Garda. Cada pieza cuenta la historia del Prà de la Fam.',
     'badge-best':'Más vendido','badge-uni':'Unisex','badge-eco':'Eco-friendly','badge-bio':'Ecológico','badge-arom':'Aromatizado',
-    'telo-cat':'Accesorios · Mar & Lago','telo-name':'Toalla de playa Prà de la Fam',
-    'telo-desc':'Suave y amplia, con el logo del Prà de la Fam. Perfecta para los días en el Lago de Garda, las rocas o la playa. 100% algodón, estampado resistente al lavado.',
-    'cap-cat':'Accesorios · Sombrerería','cap-name':'Gorra Prà de la Fam',
-    'cap-desc':'Gorra con visera regulable con el logo Prà de la Fam bordado en el frente. Ideal para excursiones al Monte Baldo o días de vela en el Lago de Garda.',
-    'tsh-cat':'Ropa · Camiseta','tsh-name':'Camiseta Prà de la Fam',
-    'tsh-desc':'Camiseta unisex de algodón orgánico con estampado minimal del logo y la silueta del Lago de Garda. Disponible en varias tallas y colores. El souvenir auténtico.',
-    'inf-cat':'Calzado · Lago & Playa','inf-name':'Chanclas Prà de la Fam',
-    'inf-desc':'Chanclas cómodas y resistentes con logo en relieve. El complemento ideal para pasear junto al Lago de Garda y los días de playa.',
-    'tot-cat':'Accesorios · Bolsa de la compra','tot-name':'Tote Bag Prà de la Fam',
-    'tot-desc':'Bolsa de lona natural resistente con logo y cítricos de la limonaia del Lago de Garda. Amplia, ligera, reutilizable. La elección sostenible.',
-    'on-request':'bajo pedido','contact-avail':'Contáctanos para disponibilidad','btn-info':'Pedir info →',
+    'telo-cat':'Accesorios · Mar & Lago','telo-name':'Fouta',
+    'telo-desc':'Fouta hammam de algodón, rayas blancas sobre fondo azul lago. Logo Prà de la Fam estampado. Ligera, de secado rápido.',
+    'cap-cat':'Accesorios · Sombrerería','cap-name':'Gorra',
+    'cap-desc':'Gorra trucker blanca y negra con parche bordado rojo. Logo al frente, "Since 1754" en el cierre. Visera pre-curvada.',
+    'tsh-cat':'Ropa · Camiseta','tsh-name':'Camiseta',
+    'tsh-desc':'Gráfico de windsurf vintage años 80. Disponible en azul, blanca y gris oscuro. Tallas de S a XXXL.',
+    'inf-cat':'Calzado · Lago & Playa','inf-name':'Chanclas',
+    'inf-desc':'Ilustración toile de Jouy — gaviota, limón, velero. Logo y teléfono impresos en la suela.',
+    'tot-cat':'Accesorios · Bolsa de la compra','tot-name':'Tote Bag',
+    'tot-desc':'Lona natural en bruto, impresión fotográfica — logo grabado en la arena del lago. Amplia, reutilizable.',
+    'contact-avail':'Disponible en el establecimiento','btn-info':'Pedir info →',
     's2-idx':'02 — Del limonar a tu mesa','s2-title':'Gastronomía &\n<em>Sabores del Lago</em>',
     's2-meta':'Productos ecológicos cultivados en el Lago de Garda. La calidad de una tierra que huele a cítricos y olivos desde hace siglos.',
     'oil1-cat':'Gastronomía · Aceite de oliva','oil1-name':'Aceite de oliva virgen extra ecológico',
-    'oil1-desc':'Aceite de oliva virgen extra ecológico producido con aceitunas cultivadas en las terrazas del Lago de Garda. Recolección a mano, prensado en frío en 24 horas. Aroma afrutado, sabor equilibrado con notas herbáceas. Certificado ecológico.',
-    'oil1-size':'Botella de 750 ml · Certificado ecológico',
+    'oil1-desc':'Aceitunas de las terrazas del Lago de Garda. Recolección a mano, prensado en frío en 24 horas. Aroma afrutado, notas herbáceas. Certificado ecológico.',
+    'oil1-size':'750 ml · Certificado ecológico',
     'oil2-cat':'Gastronomía · Aceite aromatizado','oil2-name':'Aceite EVO eco con limón',
-    'oil2-desc':'Aceite de oliva virgen extra ecológico aromatizado con limones de nuestra limonaia del Prà de la Fam. Prensado en frío con las cáscaras recién recolectadas. Perfecto con pescado, ensaladas, carpaccios y quesos frescos.',
+    'oil2-desc':'Virgen extra aromatizado con limones de nuestro limonar. Prensado en frío con cáscaras recién recolectadas. Perfecto con pescado, ensaladas, carpaccios y quesos frescos.',
     'oil2-size':'250 ml · Limonaia del Prà de la Fam',
     'q1-name':'Certificado ecológico','q1-desc':'Sin pesticidas, sin aditivos. Solo aceitunas y la naturaleza del Lago de Garda.',
     'q2-name':'Recolección a mano','q2-desc':'Las aceitunas se recolectan a mano en las terrazas con vistas al lago.',
-    'q3-name':'Prensado en frío','q3-desc':'Extraído en frío en las 24 horas siguientes a la recolección para preservar aromas y antioxidantes.',
-    'q4-name':'Disponibilidad estacional','q4-desc':'Producción limitada. Contáctanos para verificar la disponibilidad actual.',
+    'q3-name':'Prensado en frío','q3-desc':'Extraído en frío en 24 horas para preservar aromas y antioxidantes.',
+    'q4-name':'Disponibilidad estacional','q4-desc':'Producción limitada. Contáctanos para verificar la disponibilidad.',
     'ct-tag':'¿Quieres saber más?','ct-title':'Escríbenos,\n<em>te respondemos.</em>',
-    'ct-desc':'Todos los productos de la Bottega del Prà están disponibles directamente en el establecimiento o bajo pedido. Rellena el formulario para disponibilidad, precios y envíos.',
-    'ci-where':'Dónde estamos','ci-avail':'Disponibilidad','ci-avail-val':'Disponibles en el establecimiento durante el horario de apertura del hotel.','ci-phone':'Teléfono',
+    'ct-desc':'Todos los productos están disponibles en el establecimiento o bajo pedido.',
+    'ci-where':'Dónde estamos','ci-avail':'Disponibilidad','ci-avail-val':'Disponibles durante el horario de apertura del hotel.','ci-phone':'Teléfono',
     'form-title':'Enviar una solicitud','form-sub':'Rellena el formulario y te responderemos lo antes posible.',
     'f-nome-lbl':'Nombre *','f-nome-ph':'Juan','f-cog-lbl':'Apellido','f-cog-ph':'García',
     'f-prod-lbl':'Producto de interés','f-prod-ph':'— Selecciona un producto —',
     'opt-merch':'Tienda','opt-cul':'Gastronomía','opt-all':'Todos los productos / Información general',
     'f-msg-lbl':'Mensaje *','f-msg-ph':'Escribe aquí tu solicitud...',
-    'form-btn':'Enviar solicitud →','form-note':'Se abrirá tu cliente de correo con el mensaje rellenado. Envíalo para completar tu solicitud.',
-    'form-ok':'✅ <strong>¡Listo!</strong> Tu cliente de correo se ha abierto con el mensaje listo. Envíalo para completar tu solicitud — te responderemos pronto.',
+    'form-btn':'Enviar solicitud →','form-note':'Se abrirá tu cliente de correo con el mensaje rellenado.',
+    'form-ok':'✅ <strong>¡Listo!</strong> Tu cliente de correo se ha abierto. Envíalo — te responderemos pronto.',
     'foot-tag':'Prà de la Fam — Hotel & Apartamentos en el Lago de Garda.\nVia Gardesana, 7 · Porto di Tignale · 25080 Tignale (BS)',
     'foot-col1':'Tienda','foot-col2':'Prà de la Fam',
     'foot-main':'Sitio principal →','foot-book':'Reservar una habitación','foot-eco':'Museo Limonaia','foot-back':'← Volver al sitio principal',
@@ -788,72 +973,51 @@ const T = {
   }
 };
 
-// ══════════════════════════════════════════════════════════════
-// LANGUAGE ENGINE
-// ══════════════════════════════════════════════════════════════
 let currentLang = 'it';
 
 function setLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
   const d = T[lang];
-
-  // Update all [data-t] text elements
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.dataset.t;
     if (!d[key]) return;
-    if (el.tagName === 'BUTTON' || el.tagName === 'OPTION' || el.tagName === 'SPAN' || el.tagName === 'SMALL' || el.tagName === 'P' || el.tagName === 'A') {
+    if (['BUTTON','OPTION','SPAN','SMALL','P','A'].includes(el.tagName)) {
       el.innerHTML = d[key];
     } else {
       el.innerHTML = d[key].replace(/\n/g, '<br>');
     }
   });
-
-  // Update placeholders
   document.querySelectorAll('[data-placeholder-t]').forEach(el => {
     const key = el.dataset.placeholderT;
     if (d[key]) el.placeholder = d[key];
   });
-
-  // Update optgroup labels
   document.querySelectorAll('[data-label-t]').forEach(el => {
     const key = el.dataset.labelT;
     if (d[key]) el.label = d[key];
   });
-
-  // Update lang buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
   });
 }
 
-// Auto-detect browser language on load
 (function() {
   const bl = (navigator.language || navigator.userLanguage || 'it').slice(0, 2).toLowerCase();
   const supported = ['it','en','de','fr','es'];
   setLang(supported.includes(bl) ? bl : 'it');
 })();
 
-// ══════════════════════════════════════════════════════════════
-// PARALLAX
-// ══════════════════════════════════════════════════════════════
 const hbg = document.getElementById('hbg');
 window.addEventListener('scroll', () => {
   if (hbg && window.scrollY < window.innerHeight * 1.2)
     hbg.style.transform = `translateY(${window.scrollY * .25}px)`;
 }, {passive: true});
 
-// ══════════════════════════════════════════════════════════════
-// SCROLL REVEAL
-// ══════════════════════════════════════════════════════════════
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }});
 }, {threshold: .07});
 document.querySelectorAll('.r').forEach(el => io.observe(el));
 
-// ══════════════════════════════════════════════════════════════
-// NAV ACTIVE HIGHLIGHT
-// ══════════════════════════════════════════════════════════════
 const secs = document.querySelectorAll('section[id]');
 const nls = document.querySelectorAll('.nav-center a');
 window.addEventListener('scroll', () => {
@@ -862,17 +1026,27 @@ window.addEventListener('scroll', () => {
   nls.forEach(a => a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes(c)));
 }, {passive: true});
 
-// ══════════════════════════════════════════════════════════════
-// SMOOTH SCROLL
-// ══════════════════════════════════════════════════════════════
 function scrollTo(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 
-// ══════════════════════════════════════════════════════════════
+// CARD TOGGLE
+function toggleCard(card) {
+  const isOpen = card.classList.contains('open');
+  const grid = card.closest('.prod-grid');
+  if (grid) {
+    grid.querySelectorAll('.prod-card.open').forEach(c => {
+      if (c !== card) c.classList.remove('open');
+    });
+  }
+  card.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
+  }
+}
+
 // SLIDER
-// ══════════════════════════════════════════════════════════════
 document.querySelectorAll('.prod-img').forEach(wrap => {
   const track = wrap.querySelector('.prod-slides');
   if (!track) return;
@@ -902,9 +1076,6 @@ document.querySelectorAll('.prod-img').forEach(wrap => {
   wrap.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) dx < 0 ? go(cur + 1) : go(cur - 1); });
 });
 
-// ══════════════════════════════════════════════════════════════
-// SCROLL TO CONTACT + PREFILL PRODUCT
-// ══════════════════════════════════════════════════════════════
 function scrollToContact(nameKey) {
   scrollTo('contatti');
   if (nameKey) {
@@ -923,9 +1094,6 @@ function scrollToContact(nameKey) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// FORM → MAILTO
-// ══════════════════════════════════════════════════════════════
 function sendForm() {
   const nome    = document.getElementById('f-nome').value.trim();
   const cognome = document.getElementById('f-cognome').value.trim();
@@ -934,11 +1102,9 @@ function sendForm() {
   const prodVal = prod ? prod.options[prod.selectedIndex].text : '';
   const msg     = document.getElementById('f-msg').value.trim();
   const d       = T[currentLang];
-
   if (!nome)  { alert(currentLang === 'it' ? 'Inserisci il tuo nome.' : 'Please enter your name.'); return; }
   if (!email || !email.includes('@')) { alert(currentLang === 'it' ? 'Inserisci un email valida.' : 'Please enter a valid email.'); return; }
   if (!msg)   { alert(currentLang === 'it' ? 'Scrivi un messaggio.' : 'Please write a message.'); return; }
-
   const subject = encodeURIComponent(prodVal && prodVal !== d['f-prod-ph'] ? `${d['mail-subject']}: ${prodVal}` : d['mail-subject']);
   const body    = encodeURIComponent(
     d['mail-greeting'] +
@@ -946,7 +1112,6 @@ function sendForm() {
     (prodVal && prodVal !== d['f-prod-ph'] ? `Prodotto / Product: ${prodVal}\n` : '') +
     `\n${msg}\n\n${nome}`
   );
-
   window.location.href = `mailto:info@alpradelafam.com?subject=${subject}&body=${body}`;
   const ok = document.getElementById('form-success');
   ok.style.display = 'block';
@@ -989,7 +1154,6 @@ function sendForm() {
     localStorage.setItem('pdlf_consent', accepted);
     applyConsent(accepted);
   }
-
   function applyConsent(accepted){
     gtag('consent', 'update', {
       'analytics_storage': accepted ? 'granted' : 'denied'
@@ -997,7 +1161,6 @@ function sendForm() {
     var el = document.getElementById('pdlf-overlay');
     if(el) el.remove();
   }
-
   (function(){
     var stored = localStorage.getItem('pdlf_consent');
     if(stored !== null){ applyConsent(stored === 'true'); }
