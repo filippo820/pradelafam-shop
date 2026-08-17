@@ -58,7 +58,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bone);color:var(--ink);ov
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,3vw,3rem);height:68px;background:rgba(247,244,239,.96);backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid rgba(11,21,32,.08)}
 .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:0}
-.nav-logo-img{height:46px;width:auto;display:block}
+.nav-logo-img{height:44px;width:auto;display:block}
+@media(max-width:640px){.nav-logo-img{height:36px}}
 .nav-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);letter-spacing:.03em;line-height:1.1}
 .nav-brand small{display:block;font-family:'DM Sans',sans-serif;font-size:.52rem;font-weight:400;color:var(--steel);letter-spacing:.14em;text-transform:uppercase}
 .nav-center{display:flex;gap:1.6rem;align-items:center}
