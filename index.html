@@ -53,6 +53,7 @@
   --shadow-hover:0 32px 80px rgba(11,21,32,.24),0 8px 24px rgba(11,21,32,.14);
 }
 html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:88px}
 body{font-family:'DM Sans',sans-serif;background:var(--bone);color:var(--ink);overflow-x:hidden}
 
 /* NAV */
@@ -278,9 +279,9 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
     <div class="nav-brand">Bottega del Prà<small>Lago di Garda</small></div>
   </a>
   <div class="nav-center">
-    <a onclick="scrollTo('merchandising')" data-t="nav-merch">Merchandising</a>
-    <a onclick="scrollTo('culinaria')" data-t="nav-cul">Culinaria</a>
-    <a onclick="scrollTo('contatti')" data-t="nav-cont">Contatti</a>
+    <a href="#merchandising" data-t="nav-merch">Merchandising</a>
+    <a href="#culinaria" data-t="nav-cul">Culinaria</a>
+    <a href="#contatti" data-t="nav-cont">Contatti</a>
   </div>
   <div class="nav-right">
     <div class="lang-switcher">
@@ -290,7 +291,7 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
       <button class="lang-btn" onclick="setLang('fr')">FR</button><span class="lang-sep">|</span>
       <button class="lang-btn" onclick="setLang('es')">ES</button>
     </div>
-    <button class="nav-cta" onclick="scrollTo('contatti')" data-t="nav-cta">Richiedi info →</button>
+    <button class="nav-cta" onclick="vaiA('contatti')" data-t="nav-cta">Richiedi info →</button>
   </div>
 </nav>
 
@@ -730,9 +731,9 @@ footer{background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)
     <div>
       <p class="footer-col-title" data-t="foot-col1">Bottega</p>
       <div class="footer-links">
-        <a onclick="scrollTo('merchandising')" data-t="nav-merch">Merchandising</a>
-        <a onclick="scrollTo('culinaria')" data-t="nav-cul">Culinaria</a>
-        <a onclick="scrollTo('contatti')" data-t="nav-cont">Contatti</a>
+        <a href="#merchandising" data-t="nav-merch">Merchandising</a>
+        <a href="#culinaria" data-t="nav-cul">Culinaria</a>
+        <a href="#contatti" data-t="nav-cont">Contatti</a>
       </div>
     </div>
     <div>
@@ -1034,10 +1035,13 @@ const nls = document.querySelectorAll('.nav-center a');
 window.addEventListener('scroll', () => {
   let c = '';
   secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) c = s.id; });
-  nls.forEach(a => a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes(c)));
+  nls.forEach(a => a.classList.toggle('active', !!c && a.getAttribute('href') === '#' + c));
 }, {passive: true});
 
-function scrollTo(id) {
+/* NON chiamarla scrollTo. Dentro un onclick scritto nell'HTML i nomi si
+   cercano prima sull'elemento: Element.prototype.scrollTo esiste, quindi
+   «scrollTo('contatti')» finiva li' dentro e non faceva niente. */
+function vaiA(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
 }
@@ -1088,7 +1092,7 @@ document.querySelectorAll('.prod-img').forEach(wrap => {
 });
 
 function scrollToContact(nameKey) {
-  scrollTo('contatti');
+  vaiA('contatti');
   if (nameKey) {
     setTimeout(() => {
       const sel = document.getElementById('f-prodotto');
