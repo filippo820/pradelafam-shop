@@ -1231,6 +1231,9 @@ document.querySelectorAll('.prod-slides').forEach(slider => {
   function pdlfConsent(accepted){
     localStorage.setItem('pdlf_consent', accepted);
     applyConsent(accepted);
+    // La scelta e' un dato: senza, non si sa quanta parte del traffico resta
+    // senza cookie. Parte DOPO applyConsent, cosi' chi accetta e' gia' concesso.
+    try { gtag('event','consenso',{ scelta: accepted ? 'accetta' : 'solo_necessari' }); } catch(e){}
   }
   function applyConsent(accepted){
     gtag('consent', 'update', {
